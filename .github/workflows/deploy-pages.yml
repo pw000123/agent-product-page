@@ -29,6 +29,11 @@ jobs:
         run: npm ci
       - name: Build static site
         run: npx vinext build
+      - name: Fix GitHub Pages asset paths
+        run: |
+            sed -i 's|href="/_next|href="/agent-product-page/_next|g' dist/client/index.html
+            sed -i 's|src="/_next|src="/agent-product-page/_next|g' dist/client/index.html
+            sed -i 's|href="/favicon|href="/agent-product-page/favicon|g' dist/client/index.html
       - name: Add Pages marker
         run: touch dist/client/.nojekyll
       - name: Upload Pages artifact
